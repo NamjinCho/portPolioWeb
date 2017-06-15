@@ -6,7 +6,8 @@ var path = require("path");
 var db;
 var logUpdater = function(req,res,next)
 {
-  console.log('enterenced');
+  if(req.url=='/')
+    console.log(req.url);
   next();
 }
 var options = {
@@ -14,6 +15,8 @@ var options = {
 };
 
 app.use(logUpdater);
+
+
 
 app.use(express.static(path.join(__dirname, "public"), options));
 app.use(express.static(path.join(__dirname, "js")));
