@@ -4,17 +4,20 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require("path");
 var db;
+
 //var requestIp = require('request-Ip');
-//app.use(requestIp.mw())
 var logUpdater = function(req,res,next)
+//app.use(requestIp.mw())
 {
   if(req.url=='/' || req.url=='/index.html'){
-    console.log(req.socket.remoteAddress);
-    db.collection('Enterenced').findOne({identifiyer:1},function(error, result) {
+
+    var cientIp = req.socket.remoteAddress.split('-')[3];
+    console.log(clientIp);
+    db.collection('Enterenced').findOne({ip:clientIp},function(error, result) {
 
       if(error || !result)
       {
-        var datas = {identifiyer : 1, num : 1}
+        var datas = {ip : clientIp, num : 1}
         console.log("non");
         db.collection('Enterenced').insert(datas,function(err,result){
           if(err)
@@ -27,8 +30,8 @@ var logUpdater = function(req,res,next)
       else {
         var newNum = result.num;
         newNum++;
-        var query = {identifiyer : 1}
-        var setQuery = {identifiyer : 1, num : newNum }
+        var query = {ip : clientIP}
+        var setQuery = {ip : clientIp, num : newNum }
         var option = {upsert:true}
         db.collection('Enterenced').update(query,setQuery,option,function(err, result){
 
