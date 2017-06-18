@@ -11,7 +11,7 @@ var logUpdater = function(req,res,next)
 {
   if(req.url=='/' || req.url=='/index.html'){
 
-    var cientIp = req.socket.remoteAddress.split('-')[3];
+    var clientIp = req.socket.remoteAddress;
     console.log(clientIp);
     db.collection('Enterenced').findOne({ip:clientIp},function(error, result) {
 
