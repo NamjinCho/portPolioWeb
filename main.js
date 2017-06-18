@@ -30,7 +30,7 @@ var logUpdater = function(req,res,next)
       else {
         var newNum = result.num;
         newNum++;
-        var query = {ip : clientIP}
+        var query = {ip : clientIp}
         var setQuery = {ip : clientIp, num : newNum }
         var option = {upsert:true}
         db.collection('Enterenced').update(query,setQuery,option,function(err, result){
