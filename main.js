@@ -4,9 +4,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require("path");
 var db;
+var requestIp = require('request-Ip');
+app.use(requestIp.mw())
 var logUpdater = function(req,res,next)
 {
-  if(req.url=='/'){
+  if(req.url=='/' || req.url=='/index.html'){
+    console.log(req.socket.remoteAddress);
     db.collection('Enterenced').findOne({identifiyer:1},function(error, result) {
 
       if(error || !result)
